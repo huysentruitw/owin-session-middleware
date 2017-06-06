@@ -33,7 +33,7 @@ namespace OwinSessionMiddleware
         public override async Task Invoke(IOwinContext context)
         {
             var sessionContext = await GetOrCreateSessionContext(context.Request, context.Response);
-            context.Set(_options.SessionContextOwinEnvironmentKey, sessionContext);
+            context.Set(Constants.SessionContextOwinEnvironmentKey, sessionContext);
 
             await Next.Invoke(context);
 

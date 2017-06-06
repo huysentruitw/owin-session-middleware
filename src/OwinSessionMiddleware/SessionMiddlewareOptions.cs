@@ -30,11 +30,6 @@ namespace OwinSessionMiddleware
         public bool UseSecureCookie { get; set; } = true;
 
         /// <summary>
-        /// The name of the key that will be used to add the <see cref="SessionContext{TSessionProperty}"/> instance to the current OWIN environment.
-        /// </summary>
-        public string SessionContextOwinEnvironmentKey { get; set; } = SessionMiddlewareDefaults.SessionContextOwinEnvironmentKey;
-
-        /// <summary>
         /// The session store.
         /// </summary>
         public ISessionStore<TSessionProperty> Store { get; set; } = new InMemorySessionStore<TSessionProperty>();
