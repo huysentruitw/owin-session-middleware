@@ -94,7 +94,7 @@ app.Use(async (ctx, next) =>
 
     var requestCount = sessionContext.Get<int>("RequestCount");
 
-    sessionContext.AddOrUpdate("RequestCount", requestCount++);
+    sessionContext.AddOrUpdate("RequestCount", ++requestCount);
 
     await next();
 });
@@ -109,6 +109,6 @@ public IHttpActionResult MyAction()
 {
     var requestCount = Request.GetSessionProperty<int>("RequestCount");
 
-    Request.SetSessionProperty("RequestCount");
+    Request.SetSessionProperty("RequestCount", ++requestCount);
 }
 ```
