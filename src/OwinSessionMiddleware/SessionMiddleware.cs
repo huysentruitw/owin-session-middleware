@@ -105,7 +105,12 @@ namespace OwinSessionMiddleware
                 await _options.Store.Add(sessionContext.SessionId, sessionContext.Properties).ConfigureAwait(false);
 
             if (sessionContext.IsModified)
-                await _options.Store.Update(sessionContext.SessionId, sessionContext.Properties).ConfigureAwait(false);
+            {
+                if (!sessionContext.IsEmpty)
+                    await _options.Store.Update(sessionContext.SessionId, sessionContext.Properties).ConfigureAwait(false);
+                else
+                    await _options.Store.Delete(sessionContext.SessionId).ConfigureAwait(false);
+            }
         }
     }
 }
