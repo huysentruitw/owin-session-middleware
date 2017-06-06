@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace OwinSessionMiddleware
 {
-    public class SessionMiddlewareOptions
+    public class SessionMiddlewareOptions<TSessionProperty>
     {
         public static class Defaults
         {
@@ -29,7 +29,7 @@ namespace OwinSessionMiddleware
 
         public string SessionContextOwinEnvironmentKey { get; set; } = Defaults.SessionContextOwinEnvironmentKey;
 
-        public ISessionStore Store { get; set; } = new InMemorySessionStore();
+        public ISessionStore<TSessionProperty> Store { get; set; } = new InMemorySessionStore<TSessionProperty>();
 
         public Func<string> UniqueSessionIdGenerator { get; set; } = Defaults.UniqueSessionIdGenerator;
     }
