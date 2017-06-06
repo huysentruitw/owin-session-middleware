@@ -45,4 +45,9 @@ namespace OwinSessionMiddleware
         /// </summary>
         public Func<string> UniqueSessionIdGenerator { get; set; } = SessionMiddlewareDefaults.UniqueSessionIdGenerator;
     }
+
+    /// <summary>
+    /// Options class for the <see cref="SessionMiddleware{TSessionProperty}"/> class with string as session property type.
+    /// </summary>
+    public class SessionMiddlewareOptions : SessionMiddlewareOptions<string> { }
 }
