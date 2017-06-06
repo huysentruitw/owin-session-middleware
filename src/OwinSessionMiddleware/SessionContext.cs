@@ -39,7 +39,7 @@ namespace OwinSessionMiddleware
         /// Find a property for the current session.
         /// </summary>
         /// <param name="key">The key of the property.</param>
-        /// <returns>The value of the property, or default(TValue) in case the property was not found.</returns>
+        /// <returns>The value of the property, or null in case the property was not found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when the key is null.</exception>
         public object Find(string key)
         {
