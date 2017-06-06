@@ -71,7 +71,7 @@ namespace OwinSessionMiddleware
         }
 
         /// <summary>
-        /// Gets or creates a <see cref="SessionContext{TValue}"/> for the current request.
+        /// Gets or creates a <see cref="SessionContext{TSessionProperty}"/> for the current request.
         /// If a new session needs to be created, a session cookie will be written to the response.
         /// </summary>
         /// <param name="request">The current request.</param>
@@ -84,17 +84,22 @@ namespace OwinSessionMiddleware
             if (sessionId != null)
             {
                 var properties = await _options.Store.FindById(sessionId).ConfigureAwait(false)
-                    ?? Enumerable.Empty<KeyValuePair<string, string>>();
+                    ?? Enumerable.Empty<KeyValuePair<string, TSessionProperty>>();
                 
-                return SessionContext.ForExistingSession(sessionId, properties);
+                return SessionContext<TSessionProperty>.ForExistingSession(sessionId, properties);
             }
 
             sessionId = _options.UniqueSessionIdGenerator();
             WriteSessionIdToResponse(response, sessionId);
-            return SessionContext.ForNewSession(sessionId);
+            return SessionContext<TSessionProperty>.ForNewSession(sessionId);
         }
 
-        protected virtual async Task UpdateSessionStore(SessionContext sessionContext)
+        /// <summary>
+        /// Update a <see cref="SessionContext{TSessionProperty}"/> in the store for the current request.
+        /// </summary>
+        /// <param name="sessionContext">The session context to update in the store.</param>
+        /// <returns>A <see cref="Task"/> for async execution.</returns>
+        protected virtual async Task UpdateSessionStore(SessionContext<TSessionProperty> sessionContext)
         {
             if (sessionContext.IsNew && !sessionContext.IsEmpty)
                 await _options.Store.Add(sessionContext.SessionId, sessionContext.Properties).ConfigureAwait(false);
