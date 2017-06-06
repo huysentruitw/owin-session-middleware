@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OwinSessionMiddleware.WebApi")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OWIN middleware for working with session-cookie and session properties")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Huysentruit")]
 [assembly: AssemblyProduct("OwinSessionMiddleware.WebApi")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2017 Huysentruit Wouter")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
