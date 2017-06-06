@@ -5,19 +5,18 @@ using System.Threading.Tasks;
 namespace OwinSessionMiddleware
 {
     /// <summary>
-    /// An in-memory implementation of <see cref="ISessionStore{TSessionProperty}"/>.
+    /// An in-memory implementation of <see cref="ISessionStore"/>.
     /// </summary>
-    /// <typeparam name="TSessionProperty"></typeparam>
-    public class InMemorySessionStore<TSessionProperty> : ISessionStore<TSessionProperty>
+    public class InMemorySessionStore : ISessionStore
     {
-        private readonly Dictionary<string, IEnumerable<KeyValuePair<string, TSessionProperty>>> _store = new Dictionary<string, IEnumerable<KeyValuePair<string, TSessionProperty>>>();
+        private readonly Dictionary<string, IEnumerable<KeyValuePair<string, object>>> _store = new Dictionary<string, IEnumerable<KeyValuePair<string, object>>>();
 
         /// <summary>
         /// Finds a session by its id.
         /// </summary>
         /// <param name="sessionId">The session id.</param>
         /// <returns>The session properties or null when the session was not found.</returns>
-        public Task<IEnumerable<KeyValuePair<string, TSessionProperty>>> FindById(string sessionId)
+        public Task<IEnumerable<KeyValuePair<string, object>>> FindById(string sessionId)
             => Task.FromResult(_store.ContainsKey(sessionId) ? _store[sessionId] : null);
 
         /// <summary>
@@ -26,7 +25,7 @@ namespace OwinSessionMiddleware
         /// <param name="sessionId">The session id.</param>
         /// <param name="properties">The session properties.</param>
         /// <returns>A <see cref="Task"/> for async execution.</returns>
-        public Task Add(string sessionId, IEnumerable<KeyValuePair<string, TSessionProperty>> properties)
+        public Task Add(string sessionId, IEnumerable<KeyValuePair<string, object>> properties)
         {
             _store.Add(sessionId, properties.ToList());
             return Task.CompletedTask;
@@ -38,7 +37,7 @@ namespace OwinSessionMiddleware
         /// <param name="sessionId">The session id.</param>
         /// <param name="properties">The session properties.</param>
         /// <returns>A <see cref="Task"/> for async execution.</returns>
-        public Task Update(string sessionId, IEnumerable<KeyValuePair<string, TSessionProperty>> properties)
+        public Task Update(string sessionId, IEnumerable<KeyValuePair<string, object>> properties)
         {
             _store[sessionId] = properties.ToList();
             return Task.CompletedTask;

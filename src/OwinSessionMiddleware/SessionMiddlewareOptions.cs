@@ -4,10 +4,9 @@ using System.Security.Cryptography;
 namespace OwinSessionMiddleware
 {
     /// <summary>
-    /// Options class for the <see cref="SessionMiddleware{TSessionProperty}"/> class.
+    /// Options class for the <see cref="SessionMiddleware"/> class.
     /// </summary>
-    /// <typeparam name="TSessionProperty">The type of the session properties.</typeparam>
-    public class SessionMiddlewareOptions<TSessionProperty>
+    public class SessionMiddlewareOptions
     {
         /// <summary>
         /// The name of the session cookie.
@@ -32,7 +31,7 @@ namespace OwinSessionMiddleware
         /// <summary>
         /// The session store.
         /// </summary>
-        public ISessionStore<TSessionProperty> Store { get; set; } = new InMemorySessionStore<TSessionProperty>();
+        public ISessionStore Store { get; set; } = new InMemorySessionStore();
 
         /// <summary>
         /// A <see cref="Func{String}"/> that will be called whenever a new session id needs to be generated.
@@ -40,9 +39,4 @@ namespace OwinSessionMiddleware
         /// </summary>
         public Func<string> UniqueSessionIdGenerator { get; set; } = SessionMiddlewareDefaults.UniqueSessionIdGenerator;
     }
-
-    /// <summary>
-    /// Options class for the <see cref="SessionMiddleware{TSessionProperty}"/> class with string as session property type.
-    /// </summary>
-    public class SessionMiddlewareOptions : SessionMiddlewareOptions<string> { }
 }

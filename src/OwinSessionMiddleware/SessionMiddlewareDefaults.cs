@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 namespace OwinSessionMiddleware
 {
     /// <summary>
-    /// Default values used by <see cref="SessionMiddlewareOptions{TSessionProperty}"/>.
+    /// Default values used by <see cref="SessionMiddlewareOptions"/>.
     /// </summary>
     public static class SessionMiddlewareDefaults
     {

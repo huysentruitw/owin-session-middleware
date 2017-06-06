@@ -9,17 +9,16 @@ namespace OwinSessionMiddleware
     /// <summary>
     /// The session middleware class.
     /// </summary>
-    /// <typeparam name="TSessionProperty">The type of the session properties.</typeparam>
-    public class SessionMiddleware<TSessionProperty> : OwinMiddleware
+    public class SessionMiddleware : OwinMiddleware
     {
-        private readonly SessionMiddlewareOptions<TSessionProperty> _options;
+        private readonly SessionMiddlewareOptions _options;
 
         /// <summary>
-        /// Constructs a new <see cref="SessionMiddleware{TValue}"/> instance.
+        /// Constructs a new <see cref="SessionMiddleware"/> instance.
         /// </summary>
         /// <param name="next">The next middleware in the chain.</param>
         /// <param name="options">The middleware specific options.</param>
-        public SessionMiddleware(OwinMiddleware next, SessionMiddlewareOptions<TSessionProperty> options) : base(next)
+        public SessionMiddleware(OwinMiddleware next, SessionMiddlewareOptions options) : base(next)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
             _options = options;
@@ -71,35 +70,35 @@ namespace OwinSessionMiddleware
         }
 
         /// <summary>
-        /// Gets or creates a <see cref="SessionContext{TSessionProperty}"/> for the current request.
+        /// Gets or creates a <see cref="SessionContext"/> for the current request.
         /// If a new session needs to be created, a session cookie will be written to the response.
         /// </summary>
         /// <param name="request">The current request.</param>
         /// <param name="response">The current response.</param>
         /// <returns>The existing or newly created session context.</returns>
-        protected virtual async Task<SessionContext<TSessionProperty>> GetOrCreateSessionContext(IOwinRequest request, IOwinResponse response)
+        protected virtual async Task<SessionContext> GetOrCreateSessionContext(IOwinRequest request, IOwinResponse response)
         {
             var sessionId = ReadSessionIdFromRequest(request);
 
             if (sessionId != null)
             {
                 var properties = await _options.Store.FindById(sessionId).ConfigureAwait(false)
-                    ?? Enumerable.Empty<KeyValuePair<string, TSessionProperty>>();
+                    ?? Enumerable.Empty<KeyValuePair<string, object>>();
                 
-                return SessionContext<TSessionProperty>.ForExistingSession(sessionId, properties);
+                return SessionContext.ForExistingSession(sessionId, properties);
             }
 
             sessionId = _options.UniqueSessionIdGenerator();
             WriteSessionIdToResponse(response, sessionId);
-            return SessionContext<TSessionProperty>.ForNewSession(sessionId);
+            return SessionContext.ForNewSession(sessionId);
         }
 
         /// <summary>
-        /// Update a <see cref="SessionContext{TSessionProperty}"/> in the store for the current request.
+        /// Update a <see cref="SessionContext"/> in the store for the current request.
         /// </summary>
         /// <param name="sessionContext">The session context to update in the store.</param>
         /// <returns>A <see cref="Task"/> for async execution.</returns>
-        protected virtual async Task UpdateSessionStore(SessionContext<TSessionProperty> sessionContext)
+        protected virtual async Task UpdateSessionStore(SessionContext sessionContext)
         {
             if (sessionContext.IsNew && !sessionContext.IsEmpty)
                 await _options.Store.Add(sessionContext.SessionId, sessionContext.Properties).ConfigureAwait(false);

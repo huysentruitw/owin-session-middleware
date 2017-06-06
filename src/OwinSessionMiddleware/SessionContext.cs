@@ -7,11 +7,10 @@ namespace OwinSessionMiddleware
     /// <summary>
     /// The session context.
     /// </summary>
-    /// <typeparam name="TSessionProperty">The type for the property values.</typeparam>
-    public class SessionContext<TSessionProperty>
+    public class SessionContext
     {
         private readonly string _sessionId;
-        private readonly IDictionary<string, TSessionProperty> _properties;
+        private readonly IDictionary<string, object> _properties;
         private readonly bool _isNew;
         private bool _isModified = false;
 
@@ -19,15 +18,15 @@ namespace OwinSessionMiddleware
         internal bool IsNew => _isNew;
         internal bool IsModified => _isModified;
         internal bool IsEmpty => !_properties.Any();
-        internal IEnumerable<KeyValuePair<string, TSessionProperty>> Properties => _properties.Select(x => x);
+        internal IEnumerable<KeyValuePair<string, object>> Properties => _properties.Select(x => x);
 
-        internal static SessionContext<TSessionProperty> ForExistingSession(string sessionId, IEnumerable<KeyValuePair<string, TSessionProperty>> properties)
-            => new SessionContext<TSessionProperty>(sessionId, properties.ToDictionary(x => x.Key, x => x.Value), false);
+        internal static SessionContext ForExistingSession(string sessionId, IEnumerable<KeyValuePair<string, object>> properties)
+            => new SessionContext(sessionId, properties.ToDictionary(x => x.Key, x => x.Value), false);
 
-        internal static SessionContext<TSessionProperty> ForNewSession(string sessionId)
-            => new SessionContext<TSessionProperty>(sessionId, new Dictionary<string, TSessionProperty>(), true);
+        internal static SessionContext ForNewSession(string sessionId)
+            => new SessionContext(sessionId, new Dictionary<string, object>(), true);
 
-        private SessionContext(string sessionId, IDictionary<string, TSessionProperty> properties, bool isNew)
+        private SessionContext(string sessionId, IDictionary<string, object> properties, bool isNew)
         {
             if (string.IsNullOrEmpty(sessionId)) throw new ArgumentNullException(nameof(sessionId));
             if (properties == null) throw new ArgumentNullException(nameof(properties));
@@ -42,11 +41,11 @@ namespace OwinSessionMiddleware
         /// <param name="key">The key of the property.</param>
         /// <returns>The value of the property, or default(TValue) in case the property was not found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when the key is null.</exception>
-        public TSessionProperty Find(string key)
+        public object Find(string key)
         {
             if (key == null) throw new ArgumentNullException(nameof(key));
             if (_properties.ContainsKey(key)) return _properties[key];
-            return default(TSessionProperty);
+            return null;
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace OwinSessionMiddleware
         /// <param name="key">The key of the property.</param>
         /// <param name="value">The value of the property.</param>
         /// <exception cref="ArgumentNullException">Thrown when the key is null.</exception>
-        public void AddOrUpdate(string key, TSessionProperty value)
+        public void AddOrUpdate(string key, object value)
         {
             if (key == null) throw new ArgumentNullException(nameof(key));
             if (_properties.ContainsKey(key)) _properties[key] = value;
