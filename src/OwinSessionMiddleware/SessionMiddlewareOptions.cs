@@ -21,6 +21,12 @@ namespace OwinSessionMiddleware
 
         public string CookieName { get; set; } = Defaults.CookieName;
 
+        public string CookieDomain { get; set; } = null;
+
+        public TimeSpan? CookieLifetime { get; set; } = null;
+
+        public bool UseSecureCookie { get; set; } = true;
+
         public string SessionContextOwinEnvironmentKey { get; set; } = Defaults.SessionContextOwinEnvironmentKey;
 
         public ISessionStore Store { get; set; } = new InMemorySessionStore();
