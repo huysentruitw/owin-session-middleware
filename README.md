@@ -102,7 +102,7 @@ app.Use(async (ctx, next) =>
 
 From a controller, you could use `HttpContext.Current.GetOwinContext().GetSessionContext()` to get the context.
 
-If your using this inside an `ApiController`, consider using the OwinSessionMiddleware.WebApi package which has some convenient extension methods you can use inside your controller actions:
+If you're using this inside an `ApiController`, consider using the OwinSessionMiddleware.WebApi package which has some convenient extension methods you can use inside your controller actions:
 
 ```C#
 public IHttpActionResult MyAction()
