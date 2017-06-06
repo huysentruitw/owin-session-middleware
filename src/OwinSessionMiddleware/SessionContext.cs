@@ -36,17 +36,27 @@ namespace OwinSessionMiddleware
         }
 
         /// <summary>
-        /// Find a property for the current session.
+        /// Gets a property for the current session.
         /// </summary>
         /// <param name="key">The key of the property.</param>
-        /// <returns>The value of the property, or null in case the property was not found.</returns>
+        /// <returns>The value of the property or null in case the property was not found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when the key is null.</exception>
-        public object Find(string key)
+        public object Get(string key)
         {
             if (key == null) throw new ArgumentNullException(nameof(key));
             if (_properties.ContainsKey(key)) return _properties[key];
             return null;
         }
+
+        /// <summary>
+        /// Gets a property for the current session.
+        /// </summary>
+        /// <typeparam name="T">The type of the property value.</typeparam>
+        /// <param name="key">The key of the property.</param>
+        /// <returns>The value of the property or default(T) in case the property was not found.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when the key is null.</exception>
+        /// <exception cref="InvalidCastException">Thrown when an existing property is of a different type.</exception>
+        public T Get<T>(string key) => (T)(Get(key) ?? default(T));
 
         /// <summary>
         /// Add or update a property for the current session.

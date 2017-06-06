@@ -100,25 +100,51 @@ namespace OwinSessionMiddlewareTests
         }
 
         [Test]
-        public void Find_UnknownProperty_ShouldReturnNull()
+        public void Get_UnknownProperty_ShouldReturnNull()
         {
             var context = SessionContext.ForExistingSession("abc", Enumerable.Empty<KeyValuePair<string, object>>());
-            Assert.That(context.Find("B"), Is.Null);
+            Assert.That(context.Get("B"), Is.Null);
         }
 
         [Test]
-        public void Find_ExistingProperty_ShouldReturnPropertyValue()
+        public void Get_ExistingProperty_ShouldReturnPropertyValue()
         {
             var context = SessionContext.ForExistingSession(Guid.NewGuid().ToString(), new[] { Kvp("A", 1), Kvp("B", 2) });
-            Assert.That(context.Find("B"), Is.EqualTo(2));
+            Assert.That(context.Get("B"), Is.EqualTo(2));
         }
 
         [Test]
-        public void Find_NullKey_ShouldThrowException()
+        public void Get_NullKey_ShouldThrowException()
         {
             var context = SessionContext.ForExistingSession(Guid.NewGuid().ToString(), Enumerable.Empty<KeyValuePair<string, object>>());
-            var ex = Assert.Throws<ArgumentNullException>(() => context.Find(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => context.Get(null));
             Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
+        [Test]
+        public void GetGeneric_UnknownProperty_ShouldReturnDefaultT()
+        {
+            var context = SessionContext.ForNewSession("abc");
+            Assert.That(context.Get<int>("B"), Is.Zero);
+            Assert.That(context.Get<bool>("C"), Is.False);
+        }
+
+        [Test]
+        public void GetGeneric_ExistingPropertyOfCorrectType_ShouldReturnPropertyValue()
+        {
+            var context = SessionContext.ForNewSession("abc");
+            context.AddOrUpdate("B", 5);
+            context.AddOrUpdate("C", true);
+            Assert.That(context.Get<int>("B"), Is.EqualTo(5));
+            Assert.That(context.Get<bool>("C"), Is.True);
+        }
+
+        [Test]
+        public void GetGeneric_ExistingPropertyOfIncorrectType_ShouldThrowException()
+        {
+            var context = SessionContext.ForNewSession("abc");
+            context.AddOrUpdate("B", true);
+            Assert.Throws<InvalidCastException>(() => context.Get<int>("B"));
         }
 
         [Test]
