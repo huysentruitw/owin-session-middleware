@@ -16,32 +16,32 @@ The project comes with an in-memory session store, but can easily be replaced by
 
 or, if you want WebAPI integration
 
-	PM> Install-Package Install-Package OwinSessionMiddleware.WebApi
+    PM> Install-Package Install-Package OwinSessionMiddleware.WebApi
 
 # Register the middleware
 
 In its simplest form, no extra parameters are required as the defaults will fit many simple projects:
 
-	public class Startup
-	{
-		public void Configuration(IAppBuilder app)
-		{
-			app.UseSessionMiddleware();
+    public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            app.UseSessionMiddleware();
 
-			// other middleware registrations...
-			app.UseWebApi();
-		}
-	}
+            // other middleware registrations...
+            app.UseWebApi();
+        }
+    }
 
 # Options
 
 Options are set by passing an instance of [SessionMiddlewareOptions](https://github.com/huysentruitw/owin-session-middleware/blob/master/src/OwinSessionMiddleware/SessionMiddlewareOptions.cs) to the [`UseSessionMiddleware`](https://github.com/huysentruitw/owin-session-middleware/blob/master/src/OwinSessionMiddleware/Extensions/SessionMiddlewareAppBuilderExtensions.cs) extension method.
 
     var options = new SessionMiddlewareOptions
-	{
-		CookieName = "MyFancyCookieName"
-	};
-	app.UseSessionMiddleware(options);
+    {
+        CookieName = "MyFancyCookieName"
+    };
+    app.UseSessionMiddleware(options);
 
 ## CookieName
 
@@ -84,23 +84,23 @@ Once you have an instance of `IOwinContext`, you can get access to the session c
 From OWIN middleware, you can access the current session like this:
 
     app.Use(async (ctx, next) =>
-	{
-		var sessionContext = ctx.GetSessionContext();
+    {
+        var sessionContext = ctx.GetSessionContext();
 
-		var requestCount = sessionContext.Get<int>("RequestCount");
+        var requestCount = sessionContext.Get<int>("RequestCount");
 
-		sessionContext.AddOrUpdate("RequestCount", requestCount++);
+        sessionContext.AddOrUpdate("RequestCount", requestCount++);
 
-		await next();
-	});
+        await next();
+    });
 
 From a controller, you could use `HttpContext.Current.GetOwinContext().GetSessionContext()` to get the context.
 
 If your using this inside an `ApiController`, consider using the OwinSessionMiddleware.WebApi package which has some convenient extension methods you can use inside your controller actions:
 
     public IHttpActionResult MyAction()
-	{
-		var requestCount = Request.GetSessionProperty<int>("RequestCount");
+    {
+        var requestCount = Request.GetSessionProperty<int>("RequestCount");
 
-		Request.SetSessionProperty("RequestCount");
-	}
+        Request.SetSessionProperty("RequestCount");
+    }
