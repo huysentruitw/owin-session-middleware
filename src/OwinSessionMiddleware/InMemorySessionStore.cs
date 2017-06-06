@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,6 +40,7 @@ namespace OwinSessionMiddleware
         /// <returns>A <see cref="Task"/> for async execution.</returns>
         public Task Update(string sessionId, IEnumerable<KeyValuePair<string, object>> properties)
         {
+            if (!_store.ContainsKey(sessionId)) throw new KeyNotFoundException(sessionId);
             _store[sessionId] = properties.ToList();
             return Task.FromResult(0);
         }
