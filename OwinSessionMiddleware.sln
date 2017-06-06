@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinSessionMiddlewareTests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinSessionMiddleware.WebApi", "src\OwinSessionMiddleware.WebApi\OwinSessionMiddleware.WebApi.csproj", "{B0F512F9-86EA-4CB7-89C4-89E71F59BD09}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5E6CE44E-6B9D-488C-9079-5CF101EDDC3C}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
