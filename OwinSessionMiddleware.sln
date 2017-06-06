@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3EBE933D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinSessionMiddlewareTests", "tests\OwinSessionMiddlewareTests\OwinSessionMiddlewareTests.csproj", "{C6FF2293-DEB2-4C29-B59D-8793DDDA746B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinSessionMiddleware.WebApi", "src\OwinSessionMiddleware.WebApi\OwinSessionMiddleware.WebApi.csproj", "{B0F512F9-86EA-4CB7-89C4-89E71F59BD09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{C6FF2293-DEB2-4C29-B59D-8793DDDA746B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6FF2293-DEB2-4C29-B59D-8793DDDA746B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6FF2293-DEB2-4C29-B59D-8793DDDA746B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0F512F9-86EA-4CB7-89C4-89E71F59BD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0F512F9-86EA-4CB7-89C4-89E71F59BD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0F512F9-86EA-4CB7-89C4-89E71F59BD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0F512F9-86EA-4CB7-89C4-89E71F59BD09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +38,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B0269BA0-6546-473F-9AE0-08EF2D6E9EE9} = {DFA7BB69-4166-4750-920D-5FDFD4DD25C0}
 		{C6FF2293-DEB2-4C29-B59D-8793DDDA746B} = {3EBE933D-1DD9-496F-AF85-EBAF4A6F7F2E}
+		{B0F512F9-86EA-4CB7-89C4-89E71F59BD09} = {DFA7BB69-4166-4750-920D-5FDFD4DD25C0}
 	EndGlobalSection
 EndGlobal
