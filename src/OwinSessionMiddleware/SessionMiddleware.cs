@@ -12,14 +12,14 @@ namespace OwinSessionMiddleware
     /// <typeparam name="TSessionProperty">The type of the session properties.</typeparam>
     public class SessionMiddleware<TSessionProperty> : OwinMiddleware
     {
-        private readonly SessionMiddlewareOptions _options;
+        private readonly SessionMiddlewareOptions<TSessionProperty> _options;
 
         /// <summary>
         /// Constructs a new <see cref="SessionMiddleware{TValue}"/> instance.
         /// </summary>
         /// <param name="next">The next middleware in the chain.</param>
         /// <param name="options">The middleware specific options.</param>
-        public SessionMiddleware(OwinMiddleware next, SessionMiddlewareOptions options) : base(next)
+        public SessionMiddleware(OwinMiddleware next, SessionMiddlewareOptions<TSessionProperty> options) : base(next)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
             _options = options;
