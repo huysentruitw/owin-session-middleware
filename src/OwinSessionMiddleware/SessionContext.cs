@@ -74,5 +74,15 @@ namespace OwinSessionMiddleware
             _properties.Remove(key);
             if (!_isNew) _isModified = true;
         }
+
+        /// <summary>
+        /// Clears the current session.
+        /// </summary>
+        public void Clear()
+        {
+            if (!_properties.Any()) return;
+            _properties.Clear();
+            if (!_isNew) _isModified = true;
+        }
     }
 }
