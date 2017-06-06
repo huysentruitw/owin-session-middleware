@@ -21,7 +21,7 @@ namespace OwinSessionMiddleware
         internal IEnumerable<KeyValuePair<string, object>> Properties => _properties.Select(x => x);
 
         internal static SessionContext ForExistingSession(string sessionId, IEnumerable<KeyValuePair<string, object>> properties)
-            => new SessionContext(sessionId, properties.ToDictionary(x => x.Key, x => x.Value), false);
+            => new SessionContext(sessionId, properties?.ToDictionary(x => x.Key, x => x.Value), false);
 
         internal static SessionContext ForNewSession(string sessionId)
             => new SessionContext(sessionId, new Dictionary<string, object>(), true);
