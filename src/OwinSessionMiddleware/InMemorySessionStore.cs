@@ -28,7 +28,7 @@ namespace OwinSessionMiddleware
         public Task Add(string sessionId, IEnumerable<KeyValuePair<string, object>> properties)
         {
             _store.Add(sessionId, properties.ToList());
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace OwinSessionMiddleware
         public Task Update(string sessionId, IEnumerable<KeyValuePair<string, object>> properties)
         {
             _store[sessionId] = properties.ToList();
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace OwinSessionMiddleware
         public Task Delete(string sessionId)
         {
             if (_store.ContainsKey(sessionId)) _store.Remove(sessionId);
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
     }
 }
