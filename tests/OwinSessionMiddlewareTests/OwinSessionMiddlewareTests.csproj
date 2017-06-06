@@ -65,6 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionContextTests.cs" />
     <Compile Include="SessionMiddlewareDefaultsTests.cs" />
+    <Compile Include="SessionMiddlewareTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

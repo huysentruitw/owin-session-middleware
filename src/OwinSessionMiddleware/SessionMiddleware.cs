@@ -66,7 +66,7 @@ namespace OwinSessionMiddleware
                 Expires = expires
             };
 
-            response.Cookies.Append(_options.CookieName, sessionId);
+            response.Cookies.Append(_options.CookieName, sessionId, cookieOptions);
         }
 
         /// <summary>
