@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Extensions\SessionMiddlewareOwinExtensions.cs" />
     <Compile Include="InMemorySessionStore.cs" />
     <Compile Include="ISessionStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
