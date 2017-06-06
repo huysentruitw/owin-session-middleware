@@ -10,6 +10,8 @@ While it does use a cookie for remembering the session id inside the users brows
 
 The project comes with an in-memory session store, but can easily be replaced by a custom implementation.
 
+**REMARK** This library is only for those who don't want to depend on `System.Web` or `HttpContext.Current` and want a clean OWIN-only solution.
+
 # Get it on NuGet
 
     PM> Install-Package Install-Package OwinSessionMiddleware
@@ -71,9 +73,9 @@ While this would be a possible option candidate, I decided not to include it bec
 
 ## Store
 
-Changes the session store that will be used to store sessions and their properties. This option defauls to an instance of the [`InMemorySessionStore`](https://github.com/huysentruitw/owin-session-middleware/blob/master/src/OwinSessionMiddleware/InMemorySessionStore.cs).
+Changes the session store that will be used to store sessions and their properties. This option defauls to an instance of [`InMemorySessionStore`](https://github.com/huysentruitw/owin-session-middleware/blob/master/src/OwinSessionMiddleware/InMemorySessionStore.cs).
 
-But any class that implements the [`ISessionStore`](https://github.com/huysentruitw/owin-session-middleware/blob/master/src/OwinSessionMiddleware/ISessionStore.cs) interface can be used.
+Any class that implements [`ISessionStore`](https://github.com/huysentruitw/owin-session-middleware/blob/master/src/OwinSessionMiddleware/ISessionStore.cs) interface can be used.
 
 ## UniqueSessionIdGenerator
 
