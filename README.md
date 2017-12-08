@@ -14,11 +14,11 @@ The project comes with an in-memory session store, but can easily be replaced by
 
 # Get it on NuGet
 
-    PM> Install-Package Install-Package OwinSessionMiddleware
+    PM> Install-Package OwinSessionMiddleware
 
 or, if you want WebAPI integration
 
-    PM> Install-Package Install-Package OwinSessionMiddleware.WebApi
+    PM> Install-Package OwinSessionMiddleware.WebApi
 
 # Register the middleware
 
